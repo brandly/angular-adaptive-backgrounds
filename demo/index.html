@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Adaptive Backgrounds</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="demo.css">
+    <link rel="shortcut icon" href="./favicon.ico">
+  </head>
+  <body ng-app="demo">
+    <header>
+      <h1>Angular Adaptive Backgrounds</h1>
+      <h2>Surround a picture with its dominant color using a simple directive</h2>
+      <div>
+        <a class="button" href="http://github.com/brandly/angular-adaptive-backgrounds">View on GitHub</a>
+      </div>
+    </header>
+
+    <div class="wrapper">
+      <img src="mountains.jpg" adaptive-background>
+    </div>
+
+    <div class="wrapper">
+      <img src="vespa.jpg" adaptive-background>
+    </div>
+
+    <div class="wrapper">
+      <img src="bear.jpg" adaptive-background>
+    </div>
+
+    <div class="wrapper">
+      <img src="pink-flowers.jpg" adaptive-background>
+    </div>
+
+    <footer>
+      <p>Made by <a href="http://github.com/brandly">Matthew Brandly</a></p>
+      <p>Photos from <a href="http://www.pexels.com/">Pexels</a></p>
+      <div class="gh-star">
+        <iframe src="http://ghbtns.com/github-btn.html?user=brandly&repo=angular-adaptive-backgrounds&type=watch&size=large"
+        allowtransparency="true" frameborder="0" scrolling="0" width="70" height="30"></iframe>
+      </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+    <script src="angular-adaptive-backgrounds.js"></script>
+    <script src="demo.js"></script>
+  </body>
+</html>
