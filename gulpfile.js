@@ -8,6 +8,7 @@ gutil = require('gulp-util'),
 uglify = require('gulp-uglify'),
 minify = require('gulp-minify-css'),
 rename = require('gulp-rename'),
+header = require('gulp-header'),
 path = require('path'),
 express = require('express'),
 
@@ -19,6 +20,15 @@ function onError(err) {
   this.emit('end');
 }
 
+var package = require('./package.json');
+var banner = [
+  '/*',
+  '  <%= package.name %> v<%= package.version %>',
+  '  <%= package.homepage %>',
+  '*/',
+  ''
+].join('\n');
+
 var libFileName = 'angular-adaptive-backgrounds.js';
 gulp.task('coffee:lib', function () {
   return gulp.src('src/angular-adaptive-backgrounds.coffee')
@@ -27,8 +37,9 @@ gulp.task('coffee:lib', function () {
     .pipe(concat(libFileName))
     .pipe(gulp.dest(build))
     // dist
+    .pipe(header(banner, {package: package}))
     .pipe(gulp.dest('dist/'))
-    .pipe(uglify())
+    .pipe(uglify({preserveComments: 'all'}))
     .pipe(rename(function (path) {
       path.basename += '.min';
     }))
