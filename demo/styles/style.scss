@@ -42,18 +42,22 @@ p {
   margin: 2em 0;
   transition: background-color 60ms ease-in;
   letter-spacing: 0.05em;
-  box-shadow: 1px 0px 1px rgb(40, 63, 82);
+  box-shadow: 1px 1px 1px rgb(40, 63, 82);
 
   &:hover {
     color: #176FAE;
     background-color: white;
   }
+
+  &:active {
+    transform: translateY(2px);
+  }
 }
 
 h1 {
-  margin: 0.3em 0;
+  margin: 0.4em 0;
   font-size: 3em;
-  line-height: 1.2;
+  line-height: 1.1;
   text-shadow: 1px 0px 1px rgb(40, 63, 82);
 }
 
