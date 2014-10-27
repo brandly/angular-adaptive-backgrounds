@@ -72,16 +72,24 @@ p {
   -webkit-transition: background-color 60ms ease-in;
           transition: background-color 60ms ease-in;
   letter-spacing: 0.05em;
-  box-shadow: 1px 0px 1px #283f52; }
+  box-shadow: 1px 1px 1px #283f52; }
   .button:hover {
     color: #176FAE;
     background-color: white; }
+  .button:active {
+    -webkit-transform: translateY(2px);
+        -ms-transform: translateY(2px);
+            transform: translateY(2px); }
 
 h1 {
-  margin: 0.3em 0;
+  margin: 0.4em 0;
   font-size: 3em;
   line-height: 1.2;
   text-shadow: 1px 0px 1px #283f52; }
+
+@media screen and (max-width: 740px) {
+  h1 {
+    font-size: 2.4em; } }
 
 h2 {
   font-size: 1.1em;
