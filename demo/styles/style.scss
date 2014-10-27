@@ -57,8 +57,14 @@ p {
 h1 {
   margin: 0.4em 0;
   font-size: 3em;
-  line-height: 1.1;
+  line-height: 1.2;
   text-shadow: 1px 0px 1px rgb(40, 63, 82);
+}
+
+@media screen and (max-width: 740px) {
+  h1 {
+    font-size: 2.4em;
+  }
 }
 
 h2 {
