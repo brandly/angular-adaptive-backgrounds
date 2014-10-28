@@ -96,6 +96,7 @@ h2 {
   line-height: 1.2; }
 
 .wrapper {
+  position: relative;
   width: 100%;
   padding: 6em 0; }
   .wrapper img {
@@ -106,3 +107,15 @@ h2 {
 
 .gh-star {
   margin: 1.5em 0; }
+
+.ornament {
+  width: 1.5em;
+  height: 1.5em;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translate(-0.75em, 0.75em) rotate(45deg);
+      -ms-transform: translate(-0.75em, 0.75em) rotate(45deg);
+          transform: translate(-0.75em, 0.75em) rotate(45deg);
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 13; }
