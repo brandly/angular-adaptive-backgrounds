@@ -73,6 +73,7 @@ h2 {
 }
 
 .wrapper {
+  position: relative;
   width: 100%;
   padding: 6em 0;
 
@@ -86,4 +87,17 @@ h2 {
 
 .gh-star {
   margin: 1.5em 0;
+}
+
+$ornament-size: 1.5em;
+$ornament-half: $ornament-size / 2;
+.ornament {
+  width: $ornament-size;
+  height: $ornament-size;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-$ornament-half, $ornament-half) rotate(45deg);
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 13;
 }
