@@ -1,4 +1,4 @@
-angular.module 'adaptive-backgrounds-mb', ['ng']
+angular.module 'mb-adaptive-backgrounds', ['ng']
 
 .directive 'adaptiveBackground', ->
   # Include RGBaster - https://github.com/briangonzalez/rgbaster.js

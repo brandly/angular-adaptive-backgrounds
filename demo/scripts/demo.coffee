@@ -1,1 +1,1 @@
-angular.module 'demo', ['adaptive-backgrounds-mb']
+angular.module 'demo', ['mb-adaptive-backgrounds']

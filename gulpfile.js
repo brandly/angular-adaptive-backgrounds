@@ -11,8 +11,19 @@ rename = require('gulp-rename'),
 header = require('gulp-header'),
 path = require('path'),
 express = require('express'),
+package = require('./package.json'),
 
-build = gutil.env.gh ? './gh-pages/' : './build/';
+// Pass the `gh` flag to head toward GitHub
+build = gutil.env.gh ? './gh-pages/' : './build/',
+
+banner = [
+  '/*',
+  '  <%= package.name %> v<%= package.version %>',
+  '  <%= package.homepage %>',
+  '*/',
+  ''
+].join('\n'),
+libFileName = 'angular-adaptive-backgrounds.js';
 
 function onError(err) {
   gutil.log(err);
@@ -20,16 +31,6 @@ function onError(err) {
   this.emit('end');
 }
 
-var package = require('./package.json');
-var banner = [
-  '/*',
-  '  <%= package.name %> v<%= package.version %>',
-  '  <%= package.homepage %>',
-  '*/',
-  ''
-].join('\n');
-
-var libFileName = 'angular-adaptive-backgrounds.js';
 gulp.task('coffee:lib', function () {
   return gulp.src('src/angular-adaptive-backgrounds.coffee')
     .pipe(coffee())

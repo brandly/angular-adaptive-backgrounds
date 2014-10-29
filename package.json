@@ -1,8 +1,12 @@
 {
   "name": "angular-adaptive-backgrounds",
   "description": "Frame an image with its dominant color using a simple directive",
-  "author": "Matthew Brandly",
   "version": "0.1.0",
+  "author": "Matthew Brandly",
+  "license": "MIT",
+  "scripts": {
+    "start": "gulp"
+  },
   "homepage": "http://brandly.github.io/angular-adaptive-backgrounds/",
   "devDependencies": {
     "gulp": "^3.8.8",
