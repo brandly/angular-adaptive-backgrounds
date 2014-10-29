@@ -11,6 +11,7 @@ body {
 }
 
 header {
+  position: relative;
   width: 100%;
   padding: 6em 1em 3em;
   text-align: center;
@@ -99,5 +100,6 @@ $ornament-half: $ornament-size / 2;
   left: 50%;
   transform: translate(-$ornament-half, $ornament-half) rotate(45deg);
   background-color: rgba(255, 255, 255, 0.5);
+  border: 1px rgba(255, 255, 255, 0.55) solid;
   z-index: 13;
 }
