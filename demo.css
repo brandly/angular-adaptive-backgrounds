@@ -44,6 +44,7 @@ body {
   background-color: #176FAE; }
 
 header {
+  position: relative;
   width: 100%;
   padding: 6em 1em 3em;
   text-align: center; }
@@ -118,4 +119,5 @@ h2 {
       -ms-transform: translate(-0.75em, 0.75em) rotate(45deg);
           transform: translate(-0.75em, 0.75em) rotate(45deg);
   background-color: rgba(255, 255, 255, 0.5);
+  border: 1px rgba(255, 255, 255, 0.55) solid;
   z-index: 13; }
