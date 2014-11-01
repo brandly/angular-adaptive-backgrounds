@@ -4,10 +4,22 @@
   "version": "0.1.0",
   "author": "Matthew Brandly",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/brandly/angular-adaptive-backgrounds.git"
+  },
+  "homepage": "http://brandly.github.io/angular-adaptive-backgrounds/",
+  "keywords": [
+    "angular",
+    "directive",
+    "adaptive",
+    "backgrounds",
+    "images",
+    "frame"
+  ],
   "scripts": {
     "start": "gulp"
   },
-  "homepage": "http://brandly.github.io/angular-adaptive-backgrounds/",
   "devDependencies": {
     "gulp": "^3.8.8",
     "gulp-concat": "^2.1.7",
