@@ -6,7 +6,7 @@ angular.module 'mb-adaptive-backgrounds', ['ng']
 
   # Default options
   options =
-    parent: null
+    parentClass: null
     exclude: ['rgb(0,0,0)', 'rgba(255,255,255)']
     normalizeTextColor: false
     normalizedTextColors:
@@ -24,20 +24,48 @@ angular.module 'mb-adaptive-backgrounds', ['ng']
       return options
   }
 
-.directive 'adaptiveBackground', (adaptiveBackgroundsOptions) ->
+.directive 'adaptiveBackground', ($window, adaptiveBackgroundsOptions) ->
   options = adaptiveBackgroundsOptions
+
+  getCSSBackground = (raw) ->
+    $window.getComputedStyle(raw, null)
+      .getPropertyValue('background-image')
+      # Strip down to just the URL itself
+      .replace('url(', '')
+      .replace(')', '')
 
   return {
     restrict: 'A'
-    link: (scope, el, attrs) ->
-      img = el[0]
+    link: (scope, element, attrs) ->
+      rawElement = element[0]
+
+      useCSSBackground = ->
+        attrs.abCssBackground?
+
+      getParent = ->
+        # Prioritize local attribute over global config
+        parentSelector = attrs.abParentClass or options.parentClass
+
+        if parentSelector
+          # Basically walking up the DOM
+          parent = element.parent()
+          while parent[0] isnt document
+            # Looking for this class
+            if parent.hasClass parentSelector
+              return parent
+            parent = parent.parent()
+
+        # Default to first parent
+        return element.parent()
 
       setColors = (dominant, palette) ->
-        parent = el.parent()
+        parent = getParent()
         parent.css 'backgroundColor', dominant
 
+      image = if useCSSBackground() then getCSSBackground(rawElement) else rawElement
+
       # Get the colors!
-      RGBaster.colors img,
+      RGBaster.colors image,
         paletteSize: 20
         exclude: options.exclude
         success: (colors) ->
