@@ -1,5 +1,5 @@
 /*
-  angular-adaptive-backgrounds v0.1.1
+  angular-adaptive-backgrounds v0.2.0
   http://brandly.github.io/angular-adaptive-backgrounds/
 */
 (function() {
