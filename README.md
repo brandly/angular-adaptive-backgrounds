@@ -22,61 +22,74 @@ var myApp = angular.module('myApp', ['mb-adaptive-backgrounds']);
 ```
 
 ```html
-<!-- This <div> will get receive a background color... -->
-<div>
-  <!-- from this <img> -->
-  <img src="cool.jpg" adaptive-background>
+<!-- This guy will get receive a background color... -->
+<div adaptive-background>
+  <!-- from this image -->
+  <img src="cool.jpg">
 </div>
 ```
 
 ## getting fancy
 
-Instead of an `<img>`, you might have a `background-image` on some other element. Just add a `ab-css-background` attribute to make sure it finds the image.
+Since your markup could get far more complicated in a real example, `adaptive-background` will dig through its descendents for the first `img` it can find.
 
 ```html
-<div>
-  <div style="background-image: url('cool.jpg');" adaptive-background ab-css-background></div>
-</div>
-```
-
-----
-
-Since your markup could get far more complicated in a real example, you can apply the background color to _any_ parent element, simply by setting an `ab-parent-class` attribute.
-
-```html
-<!-- This guy gets the background-color -->
-<div class="the-chosen-one">
-  <!-- but not these guys -->
+<div adaptive-background>
   <div>
     <div>
-      <!-- since we set the ab-parent-class -->
-      <img src="cool.jpg" adaptive-background ab-parent-class="the-chosen-one">
+      <img src="cool.jpg">
     </div>
   </div>
 </div>
 ```
 
-----
+But if you have multiple images descending from your `adaptive-background`, it might find the wrong one! Fortunately, you can specify a class name.
 
-If you have elements all over your page that need custom parents, instead of setting `ab-parent-class` on each and every `img`, you can set a parent class for your entire app.
+```html
+<div adaptive-background ab-image-class="the-chosen-one">
+  <div>
+    <div>
+      <!-- It will skip right past this image -->
+      <img src="not-cool.jpg">
+    </div>
+    <div>
+      <!-- and grab a color from this image -->
+      <img src="cool.jpg" class="the-chosen-one">
+    </div>
+  </div>
+</div>
+```
+
+In certain cases, you might want to specify a class name for your _entire app_, instead of repeatedly setting `ab-image-class`.
 
 ```js
 myApp.config(function (adaptiveBackgroundsOptionsProvider) {
   adaptiveBackgroundsOptionsProvider.set({
-    parentClass: 'the-chosen-one'
+    imageClass: 'the-chosen-one'
   });
 });
 ```
 
 ```html
-<!-- This guy _still_ gets the background-color -->
-<div class="the-chosen-one">
+<!-- Even without setting ab-image-class... -->
+<div adaptive-background>
   <div>
     <div>
-      <!-- despite not setting any ab-parent-class -->
-      <img src="cool.jpg" adaptive-background>
+      <img src="not-cool.jpg">
+    </div>
+    <div>
+      <!-- it will still find this image -->
+      <img src="cool.jpg" class="the-chosen-one">
     </div>
   </div>
+</div>
+```
+
+Instead of an `img` element, you might have a `background-image` on some other element. Have no fear. Simply ensure you've set a parent class, either by `ab-image-class` or a global `config`.
+
+```html
+<div adaptive-background ab-image-class="the-chosen-one">
+  <div style="background-image: url('cool.jpg');" class="the-chosen-one"></div>
 </div>
 ```
 

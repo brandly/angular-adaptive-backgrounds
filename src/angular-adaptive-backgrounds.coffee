@@ -6,7 +6,7 @@ angular.module 'mb-adaptive-backgrounds', ['ng']
 
   # Default options
   options =
-    parentClass: null
+    imageClass: null
     exclude: ['rgb(0,0,0)', 'rgba(255,255,255)']
     normalizeTextColor: false
     normalizedTextColors:
@@ -39,28 +39,21 @@ angular.module 'mb-adaptive-backgrounds', ['ng']
     link: (scope, element, attrs) ->
       rawElement = element[0]
 
-      useCSSBackground = ->
-        attrs.abCssBackground?
+      useCSSBackground = (el) ->
+        el.tagName isnt 'IMG'
 
-      getParent = ->
+      findImage = ->
         # Prioritize local attribute over global config
-        parentSelector = attrs.abParentClass or options.parentClass
+        imageClass = attrs.abImageClass or options.imageClass
 
-        if parentSelector
-          # Basically walking up the DOM
-          parent = element.parent()
-          while parent[0] isnt document
-            # Looking for this class
-            if parent.hasClass parentSelector
-              return parent
-            parent = parent.parent()
+        if imageClass?
+          # Try finding an element with the given class
+          elementWithClass = rawElement.querySelector('.' + imageClass)
+          if elementWithClass?
+            return angular.element elementWithClass
 
-        # Default to first parent
-        return element.parent()
-
-      setColors = (dominant, palette) ->
-        parent = getParent()
-        parent.css 'backgroundColor', dominant
+        # Default to the first img
+        angular.element element.find('img')[0]
 
       adaptBackground = (image) ->
         # Get the colors!
@@ -68,20 +61,23 @@ angular.module 'mb-adaptive-backgrounds', ['ng']
           paletteSize: 20
           exclude: options.exclude
           success: (colors) ->
-            setColors colors.dominant, colors.palette
+            element.css 'backgroundColor', colors.dominant
 
-      if useCSSBackground()
-        adaptBackground getCSSBackground(rawElement)
+      childElement = findImage()
+      rawChildElement = childElement[0]
+
+      if useCSSBackground(rawChildElement)
+        adaptBackground getCSSBackground(rawChildElement)
 
       else
         handleImg = ->
-          adaptBackground rawElement
+          adaptBackground rawChildElement
 
         # If the image changes, set the background again
-        element.on 'load', handleImg
+        childElement.on 'load', handleImg
 
         scope.$on '$destroy', ->
-          element.off 'load', handleImg
+          childElement.off 'load', handleImg
 
         handleImg()
   }
