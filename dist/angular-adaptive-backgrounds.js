@@ -36,7 +36,7 @@
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
-        var getParent, image, rawElement, setColors, useCSSBackground;
+        var adaptBackground, getParent, handleImg, rawElement, setColors, useCSSBackground;
         rawElement = element[0];
         useCSSBackground = function() {
           return attrs.abCssBackground != null;
@@ -60,14 +60,27 @@
           parent = getParent();
           return parent.css('backgroundColor', dominant);
         };
-        image = useCSSBackground() ? getCSSBackground(rawElement) : rawElement;
-        return RGBaster.colors(image, {
-          paletteSize: 20,
-          exclude: options.exclude,
-          success: function(colors) {
-            return setColors(colors.dominant, colors.palette);
-          }
-        });
+        adaptBackground = function(image) {
+          return RGBaster.colors(image, {
+            paletteSize: 20,
+            exclude: options.exclude,
+            success: function(colors) {
+              return setColors(colors.dominant, colors.palette);
+            }
+          });
+        };
+        if (useCSSBackground()) {
+          return adaptBackground(getCSSBackground(rawElement));
+        } else {
+          handleImg = function() {
+            return adaptBackground(rawElement);
+          };
+          element.on('load', handleImg);
+          scope.$on('$destroy', function() {
+            return element.off('load', handleImg);
+          });
+          return handleImg();
+        }
       }
     };
   });

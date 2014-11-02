@@ -62,12 +62,26 @@ angular.module 'mb-adaptive-backgrounds', ['ng']
         parent = getParent()
         parent.css 'backgroundColor', dominant
 
-      image = if useCSSBackground() then getCSSBackground(rawElement) else rawElement
+      adaptBackground = (image) ->
+        # Get the colors!
+        RGBaster.colors image,
+          paletteSize: 20
+          exclude: options.exclude
+          success: (colors) ->
+            setColors colors.dominant, colors.palette
 
-      # Get the colors!
-      RGBaster.colors image,
-        paletteSize: 20
-        exclude: options.exclude
-        success: (colors) ->
-          setColors colors.dominant, colors.palette
+      if useCSSBackground()
+        adaptBackground getCSSBackground(rawElement)
+
+      else
+        handleImg = ->
+          adaptBackground rawElement
+
+        # If the image changes, set the background again
+        element.on 'load', handleImg
+
+        scope.$on '$destroy', ->
+          element.off 'load', handleImg
+
+        handleImg()
   }
