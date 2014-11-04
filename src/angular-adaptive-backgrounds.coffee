@@ -8,13 +8,9 @@ angular.module 'mb-adaptive-backgrounds', ['ng']
   options =
     imageClass: null
     exclude: ['rgb(0,0,0)', 'rgba(255,255,255)']
-    normalizeTextColor: false
-    normalizedTextColors:
-      light: '#fff'
-      dark: '#000'
     lumaClasses:
-      light: 'ab-light'
-      dark: 'ab-dark'
+      light: 'ab-light-background'
+      dark: 'ab-dark-background'
 
   return {
     set: (userOptions) ->
@@ -33,6 +29,12 @@ angular.module 'mb-adaptive-backgrounds', ['ng']
       # Strip down to just the URL itself
       .replace('url(', '')
       .replace(')', '')
+
+  # http://en.wikipedia.org/wiki/YIQ
+  digitsRegexp = /\d+/g
+  getYIQ = (color) ->
+    rgb = color.match digitsRegexp
+    ((rgb[0] * 299) + (rgb[1] * 587) + (rgb[2] * 114)) / 1000
 
   return {
     restrict: 'A'
@@ -55,14 +57,29 @@ angular.module 'mb-adaptive-backgrounds', ['ng']
         # Default to the first img
         angular.element element.find('img')[0]
 
+      setColors = (colors) ->
+        # Set the background color
+        element.css 'backgroundColor', colors.dominant
+
+        # Determine the brightness
+        yiq = getYIQ colors.dominant
+        if yiq <= 128
+          element.addClass options.lumaClasses.dark
+          element.removeClass options.lumaClasses.light
+        else
+          element.addClass options.lumaClasses.light
+          element.removeClass options.lumaClasses.dark
+
+        # Expose colors to scope
+        colors.backgroundYIQ = yiq
+        scope.adaptiveBackgroundColors = colors
+
       adaptBackground = (image) ->
         # Get the colors!
         RGBaster.colors image,
           paletteSize: 20
           exclude: options.exclude
-          success: (colors) ->
-            scope.adaptiveBackgroundColors = colors
-            element.css 'backgroundColor', colors.dominant
+          success: setColors
 
       childElement = findImage()
       rawChildElement = childElement[0]
