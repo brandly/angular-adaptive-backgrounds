@@ -61,6 +61,7 @@ angular.module 'mb-adaptive-backgrounds', ['ng']
           paletteSize: 20
           exclude: options.exclude
           success: (colors) ->
+            scope.adaptiveBackgroundColors = colors
             element.css 'backgroundColor', colors.dominant
 
       childElement = findImage()
