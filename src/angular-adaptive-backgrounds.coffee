@@ -72,7 +72,8 @@ angular.module 'mb-adaptive-backgrounds', ['ng']
 
       else
         handleImg = ->
-          adaptBackground rawChildElement
+          if rawChildElement.src
+            adaptBackground rawChildElement
 
         # If the image changes, set the background again
         childElement.on 'load', handleImg
