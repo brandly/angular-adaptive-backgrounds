@@ -57,6 +57,7 @@
             paletteSize: 20,
             exclude: options.exclude,
             success: function(colors) {
+              scope.adaptiveBackgroundColors = colors;
               return element.css('backgroundColor', colors.dominant);
             }
           });
@@ -67,7 +68,9 @@
           return adaptBackground(getCSSBackground(rawChildElement));
         } else {
           handleImg = function() {
-            return adaptBackground(rawChildElement);
+            if (rawChildElement.src) {
+              return adaptBackground(rawChildElement);
+            }
           };
           childElement.on('load', handleImg);
           scope.$on('$destroy', function() {
