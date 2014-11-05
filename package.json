@@ -33,6 +33,7 @@
     "path": "~0.4.9",
     "gulp-autoprefixer": "^1.0.1",
     "gulp-rename": "^1.2.0",
-    "gulp-header": "^1.2.2"
+    "gulp-header": "^1.2.2",
+    "gulp-ng-annotate": "^0.3.3"
   }
 }

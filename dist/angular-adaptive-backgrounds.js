@@ -20,7 +20,7 @@
         return options;
       }
     };
-  }).directive('adaptiveBackground', function($window, adaptiveBackgroundsOptions) {
+  }).directive('adaptiveBackground', ["$window", "adaptiveBackgroundsOptions", function($window, adaptiveBackgroundsOptions) {
     var digitsRegexp, getCSSBackground, getYIQ, options;
     options = adaptiveBackgroundsOptions;
     getCSSBackground = function(raw) {
@@ -90,6 +90,6 @@
         }
       }
     };
-  });
+  }]);
 
 }).call(this);

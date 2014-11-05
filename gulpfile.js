@@ -9,6 +9,7 @@ uglify = require('gulp-uglify'),
 minify = require('gulp-minify-css'),
 rename = require('gulp-rename'),
 header = require('gulp-header'),
+annotate = require('gulp-ng-annotate'),
 path = require('path'),
 express = require('express'),
 package = require('./package.json'),
@@ -39,6 +40,7 @@ gulp.task('coffee:lib', function () {
     .pipe(gulp.dest(build))
     // dist
     .pipe(header(banner, {package: package}))
+    .pipe(annotate())
     .pipe(gulp.dest('dist/'))
     .pipe(uglify({preserveComments: 'all'}))
     .pipe(rename(function (path) {
