@@ -101,7 +101,7 @@ Instead of an `img` element, you might have a `background-image` on some other e
 
 If you have text overlaying the background color, that text might no longer be readable. You have a couple classes to work with though.
 
-'ab-light-background' will be applied to a lighter background and, as you might expect, 'ab-dark-background' on a darker background. You could do something like this to make sure your text contrasts with the background.
+`ab-light-background` will be applied to a lighter background and, as you might expect, `ab-dark-background` on a darker background. You could do something like this to make sure your text contrasts with the background.
 
 ```css
 .ab-light-background {
