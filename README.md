@@ -43,6 +43,8 @@ Since your markup could get far more complicated in a real example, `adaptive-ba
 </div>
 ```
 
+#### choose an image
+
 But if you have multiple images descending from your `adaptive-background`, it might find the wrong one! Fortunately, you can specify a class name.
 
 ```html
@@ -85,12 +87,41 @@ myApp.config(function (adaptiveBackgroundsOptionsProvider) {
 </div>
 ```
 
+#### css background-image
+
 Instead of an `img` element, you might have a `background-image` on some other element. Have no fear. Simply ensure you've set a parent class, either by `ab-image-class` or a global `config`.
 
 ```html
 <div adaptive-background ab-image-class="the-chosen-one">
   <div style="background-image: url('cool.jpg');" class="the-chosen-one"></div>
 </div>
+```
+
+#### classes
+
+If you have text overlaying the background color, that text might no longer be readable. You have a couple classes to work with though.
+
+'ab-light-background' will be applied to a lighter background and, as you might expect, 'ab-dark-background' on a darker background. You could do something like this to make sure your text contrasts with the background.
+
+```css
+.ab-light-background {
+  color: #333;
+}
+
+.ab-dark-background {
+  color: #fff;
+}
+```
+
+If you're displeased with those class names, feel free to change them.
+
+```js
+myApp.config(function (adaptiveBackgroundsOptionsProvider) {
+  adaptiveBackgroundsOptionsProvider.set({
+    lightClass: 'wow-so-bright',
+    darkClass: 'pretty-dark-in-here'
+  });
+});
 ```
 
 ## dev

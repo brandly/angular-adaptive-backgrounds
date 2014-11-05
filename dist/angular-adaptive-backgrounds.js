@@ -1,5 +1,5 @@
 /*
-  angular-adaptive-backgrounds v0.2.1
+  angular-adaptive-backgrounds v0.2.2
   http://brandly.github.io/angular-adaptive-backgrounds/
 */
 (function() {
@@ -9,10 +9,8 @@
     options = {
       imageClass: null,
       exclude: ['rgb(0,0,0)', 'rgba(255,255,255)'],
-      lumaClasses: {
-        light: 'ab-light-background',
-        dark: 'ab-dark-background'
-      }
+      lightClass: 'ab-light-background',
+      darkClass: 'ab-dark-background'
     };
     return {
       set: function(userOptions) {
@@ -58,11 +56,11 @@
           element.css('backgroundColor', colors.dominant);
           yiq = getYIQ(colors.dominant);
           if (yiq <= 128) {
-            element.addClass(options.lumaClasses.dark);
-            element.removeClass(options.lumaClasses.light);
+            element.addClass(options.darkClass);
+            element.removeClass(options.lightClass);
           } else {
-            element.addClass(options.lumaClasses.light);
-            element.removeClass(options.lumaClasses.dark);
+            element.addClass(options.lightClass);
+            element.removeClass(options.darkClass);
           }
           colors.backgroundYIQ = yiq;
           return scope.adaptiveBackgroundColors = colors;

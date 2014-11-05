@@ -1,7 +1,7 @@
 {
   "name": "angular-adaptive-backgrounds",
   "description": "Frame an image with its dominant color using a simple directive",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Matthew Brandly",
   "license": "MIT",
   "repository": {

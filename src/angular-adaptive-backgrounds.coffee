@@ -8,9 +8,8 @@ angular.module 'mb-adaptive-backgrounds', ['ng']
   options =
     imageClass: null
     exclude: ['rgb(0,0,0)', 'rgba(255,255,255)']
-    lumaClasses:
-      light: 'ab-light-background'
-      dark: 'ab-dark-background'
+    lightClass: 'ab-light-background'
+    darkClass: 'ab-dark-background'
 
   return {
     set: (userOptions) ->
@@ -64,11 +63,11 @@ angular.module 'mb-adaptive-backgrounds', ['ng']
         # Determine the brightness
         yiq = getYIQ colors.dominant
         if yiq <= 128
-          element.addClass options.lumaClasses.dark
-          element.removeClass options.lumaClasses.light
+          element.addClass options.darkClass
+          element.removeClass options.lightClass
         else
-          element.addClass options.lumaClasses.light
-          element.removeClass options.lumaClasses.dark
+          element.addClass options.lightClass
+          element.removeClass options.darkClass
 
         # Expose colors to scope
         colors.backgroundYIQ = yiq
